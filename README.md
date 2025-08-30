@@ -13,7 +13,9 @@ Este projeto é um aplicativo móvel para gerenciamento de estoque, desenvolvido
 *(**Instrução:** Adicione aqui 2 ou 3 capturas de tela principais do seu aplicativo em funcionamento. Você pode fazer o upload das imagens para o próprio repositório GitHub e depois substituir as URLs abaixo.)*
 
 **Tela Principal (Lista de Produtos)**
-`![Tela de Adicionar](URL_DA_SUA_IMAGEM_AQUI)`
+![Imagem do WhatsApp de 2025-08-30 à(s) 16 57 43_b92ffd4a](https://github.com/user-attachments/assets/74136337-1481-4f74-8d1b-db0661ac056e)
+
+
 **Tela de Adicionar Produto**
 `![Tela de Adicionar](URL_DA_SUA_IMAGEM_AQUI)`
 
