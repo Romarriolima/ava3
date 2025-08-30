@@ -1,0 +1,10 @@
+# .dockerignore
+
+# Ignora a pasta de dependências do Node.js
+node_modules
+
+# Ignora logs do npm
+npm-debug.log
+
+# Ignora arquivos de ambiente (serão configurados no contêiner)
+.env
