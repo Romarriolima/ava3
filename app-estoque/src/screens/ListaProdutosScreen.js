@@ -1,23 +1,22 @@
-// app-produto/src/screens/ListaProdutosScreen.js
+// Substitua todo o conteúdo de src/screens/ListaProdutosScreen.js por isto:
+
 import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, Button, StyleSheet, ActivityIndicator, Alert, TouchableOpacity } from 'react-native';
-import axios from 'axios';
+import { useNavigation } from '@react-navigation/native';
+import api from '../services/api'; // Importa nossa API centralizada
 
-// Lembre-se: aqui antes era cursos, mas na atividade vale produtos
-// Exemplo: 'http://192.168.0.10:3000/produtos'
-const API_URL = 'http://192.168.1.20:3000/produto';
-
-export default function ListaProdutosScreen({ navigation }) {
+export default function ListaProdutosScreen() {
   const [produtos, setProdutos] = useState([]);
-  const [loading, setLoading] = useState(true); 
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigation = useNavigation();
 
-  // --- FUNÇÃO PARA BUSCAR OS DADOS DA API ---
   const fetchProdutos = async () => {
     try {
       setLoading(true);
       setError(null);
-      const response = await axios.get(API_URL);
+      // CORREÇÃO: Usa a rota '/produto'
+      const response = await api.get('/produto'); 
       setProdutos(response.data);
     } catch (err) {
       setError('Não foi possível carregar a lista de produtos.');
@@ -34,7 +33,6 @@ export default function ListaProdutosScreen({ navigation }) {
     return unsubscribe;
   }, [navigation]);
 
-  // --- FUNÇÃO PARA DELETAR UM PRODUTO ---
   const handleDelete = (id) => {
     Alert.alert(
       'Confirmar Exclusão',
@@ -45,7 +43,8 @@ export default function ListaProdutosScreen({ navigation }) {
           text: 'Confirmar',
           onPress: async () => {
             try {
-              await axios.delete(`${API_URL}/${id}`);
+              // CORREÇÃO: Usa a rota '/produto/:id'
+              await api.delete(`/produto/${id}`);
               fetchProdutos();
             } catch (err) {
               Alert.alert('Erro', 'Não foi possível excluir o produto.');
@@ -79,17 +78,16 @@ export default function ListaProdutosScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={() => navigation.navigate('AddProduto')} style={styles.addButton}>
-         <Text style={styles.addButtonText}>Adicionar Novo Produto</Text>
+        <Text style={styles.addButtonText}>Adicionar Novo Produto</Text>
       </TouchableOpacity>
-
       <FlatList
         data={produtos}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
           <View style={styles.itemContainer}>
             <View style={styles.itemTextContainer}>
-                <Text style={styles.itemNome}>{item.nome}</Text>
-                <Text style={styles.itemArea}>Qtd: {item.quantidade} | R$ {item.preco}</Text>
+              <Text style={styles.itemNome}>{item.nome}</Text>
+              <Text style={styles.itemArea}>Qtd: {item.quantidade} | R$ {item.preco}</Text>
             </View>
             <View style={styles.itemButtonContainer}>
               <Button title="Excluir" color="red" onPress={() => handleDelete(item.id)} />
@@ -103,6 +101,7 @@ export default function ListaProdutosScreen({ navigation }) {
   );
 }
 
+// Seus estilos
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#f5f5f5', padding: 10 },
   center: { flex: 1, justifyContent: 'center', alignItems: 'center' },

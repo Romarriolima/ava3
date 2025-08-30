@@ -1,9 +1,8 @@
-// app-produto/src/screens/AddProdutoScreen.js
+// src/screens/AddProdutoScreen.js (CORRIGIDO)
+
 import React, { useState } from 'react';
 import { View, TextInput, Button, StyleSheet, Alert } from 'react-native';
-import axios from 'axios';
-
-const API_URL = 'http://192.168.1.20:3000/produto';
+import api from '../services/api'; // 1. Importa nossa API centralizada
 
 export default function AddProdutoScreen({ navigation }) {
   const [nome, setNome] = useState('');
@@ -17,37 +16,39 @@ export default function AddProdutoScreen({ navigation }) {
     }
 
     try {
-      await axios.post(API_URL, {
+      // 2. USA O 'api.post' COM O CAMINHO '/produto'
+      await api.post('/produto', {
         nome,
         quantidade: parseInt(quantidade),
         preco: parseFloat(preco),
       });
-      navigation.goBack();
+      navigation.goBack(); // Volta para a lista, que será atualizada
     } catch (error) {
       Alert.alert('Erro', 'Não foi possível adicionar o produto.');
+      console.error("Erro ao adicionar produto:", error);
     }
   };
 
   return (
     <View style={styles.container}>
-      <TextInput 
-        placeholder="Nome do Produto" 
-        value={nome} 
-        onChangeText={setNome} 
-        style={styles.input} 
+      <TextInput
+        placeholder="Nome do Produto"
+        value={nome}
+        onChangeText={setNome}
+        style={styles.input}
       />
-      <TextInput 
-        placeholder="Quantidade" 
-        value={quantidade} 
-        onChangeText={setQuantidade} 
-        style={styles.input} 
+      <TextInput
+        placeholder="Quantidade"
+        value={quantidade}
+        onChangeText={setQuantidade}
+        style={styles.input}
         keyboardType="numeric"
       />
-      <TextInput 
-        placeholder="Preço" 
-        value={preco} 
-        onChangeText={setPreco} 
-        style={styles.input} 
+      <TextInput
+        placeholder="Preço"
+        value={preco}
+        onChangeText={setPreco}
+        style={styles.input}
         keyboardType="numeric"
       />
       <Button title="Salvar Produto" onPress={handleAddProduto} />

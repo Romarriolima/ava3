@@ -1,10 +1,8 @@
-// app-produto/src/screens/EditProdutoScreen.js
+// Substitua todo o conteúdo de src/screens/EditProdutoScreen.js por isto:
+
 import React, { useState, useEffect } from 'react';
 import { View, TextInput, Button, StyleSheet, Alert, Text, ActivityIndicator } from 'react-native';
-import axios from 'axios';
-
-// antes era cursos, mas aqui API de produtos
-const API_URL = 'http://192.168.1.20:3000/produto';
+import api from '../services/api'; // Importa nossa API centralizada
 
 export default function EditProdutoScreen({ route, navigation }) {
   const { produtoId } = route.params;
@@ -17,7 +15,8 @@ export default function EditProdutoScreen({ route, navigation }) {
   useEffect(() => {
     const fetchProduto = async () => {
       try {
-        const response = await axios.get(`${API_URL}/${produtoId}`);
+        // CORREÇÃO: Usa a rota '/produto/:id'
+        const response = await api.get(`/produto/${produtoId}`); 
         setNome(response.data.nome);
         setQuantidade(response.data.quantidade.toString());
         setPreco(response.data.preco.toString());
@@ -38,7 +37,8 @@ export default function EditProdutoScreen({ route, navigation }) {
     }
 
     try {
-      await axios.put(`${API_URL}/${produtoId}`, {
+      // CORREÇÃO: Usa a rota '/produto/:id'
+      await api.put(`/produto/${produtoId}`, {
         nome,
         quantidade: parseInt(quantidade),
         preco: parseFloat(preco)
@@ -67,7 +67,6 @@ export default function EditProdutoScreen({ route, navigation }) {
         style={styles.input}
         placeholder='Digite o nome do produto'
       />
-
       <Text style={styles.label}>Quantidade:</Text>
       <TextInput
         value={quantidade}
@@ -76,7 +75,6 @@ export default function EditProdutoScreen({ route, navigation }) {
         style={styles.input}
         placeholder='Digite a quantidade'
       />
-
       <Text style={styles.label}>Preço:</Text>
       <TextInput
         value={preco}
@@ -85,12 +83,12 @@ export default function EditProdutoScreen({ route, navigation }) {
         style={styles.input}
         placeholder='Digite o preço'
       />
-
       <Button title="Salvar Alterações" onPress={handleUpdate} />
     </View>
   );
 }
 
+// Seus estilos
 const styles = StyleSheet.create({
   container: { flex: 1, padding: 20, backgroundColor: '#f5f5f5' },
   center: { flex: 1, justifyContent: 'center', alignItems: 'center' },

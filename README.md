@@ -1,93 +1,111 @@
-# Avaliação Prática 01: CRUD Fullstack - Gerenciador de Estoque
+Com certeza\! Aqui está uma versão completa do `README.md`, personalizada para o projeto do Romário, com base em toda a nossa conversa.
 
-**Disciplina:** Desenvolvimento de Aplicações Móveis  
-**Professor(a):** Airton Lima Marinho
-**Data de Entrega:** 23/08/2025
-**Repositório:** `ava01`
+Ele já está com a porta **3000**, o nome da imagem Docker correta e todos os comandos que funcionaram. É só copiar, colar no arquivo `README.md`, e preencher as partes indicadas.
 
----
+-----
 
-## Objetivo
+# Projeto Final - Controle de Estoque (AVA03)
 
-Desenvolver uma aplicação **fullstack** para um "Gerenciador de Estoque" de produtos. A aplicação deverá permitir ao usuário realizar as quatro operações básicas do **CRUD (Create, Read, Update, Delete)** através de uma interface mobile em React Native, consumindo dados de uma API REST criada com Node.js e Express.
+**Autor:** Romário Lima
 
-## Funcionalidades Obrigatórias
+## 1\. Ideia e Objetivo
 
--   **Listagem de Produtos (Read):** A tela inicial deve exibir todos os produtos cadastrados, mostrando seu nome, quantidade e preço.
--   **Adição de Produto (Create):** O usuário deve poder navegar para uma nova tela e, através de um formulário, adicionar um novo produto ao estoque.
--   **Edição de Produto (Update):** A partir da lista, o usuário deve poder selecionar um produto para editar suas informações em uma tela de formulário pré-preenchida.
--   **Exclusão de Produto (Delete):** O usuário deve poder remover um produto do estoque diretamente da tela de listagem, com uma caixa de diálogo para confirmação.
+*(**Instrução:** Romário, coloque aqui a descrição original do seu projeto que você escreveu para a `ava01`, explicando o que ele faz, qual problema ele resolve e para quem se destina.)*
 
-## Especificações Técnicas
+Este projeto é um aplicativo móvel para gerenciamento de estoque, desenvolvido como avaliação final da disciplina de Programação Mobile. O objetivo é permitir que o usuário realize operações básicas de CRUD (Criar, Ler, Atualizar e Deletar) para controlar produtos, registrando seu nome, quantidade e preço. A aplicação foi construída com um backend em Node.js e um frontend em React Native, seguindo um fluxo de trabalho DevOps que inclui containerização com Docker para garantir portabilidade e facilidade de distribuição.
 
-### 1. Backend (API)
--   O projeto deve estar em uma pasta chamada `api-estoque`.
--   A API deve gerenciar uma lista de produtos.
--   **Estrutura do Objeto `produto`:**
-    > 
-    > {
-    >   "id": 1678912345,
-    >   "nome": "Teclado Mecânico",
-    >   "quantidade": 25,
-    >   "preco": 350.50
-    > }
-    >
--   **Rotas Obrigatórias:**
-    -   `GET /produtos`: Retorna a lista completa de produtos.
-    -   `GET /produtos/:id`: Retorna os dados de um único produto.
-    -   `POST /produtos`: Adiciona um novo produto. Recebe `nome`, `quantidade` e `preco` no `req.body`.
-    -   `PUT /produtos/:id`: Atualiza um produto. Recebe `nome`, `quantidade` e `preco` no `req.body`.
-    -   `DELETE /produtos/:id`: Remove um produto da lista.
+## 2\. Capturas de Tela (Screenshots)
 
-### 2. Frontend (Aplicativo)
--   O projeto deve estar em uma pasta chamada `app-estoque`.
--   **Navegação:**
-    -   Utilizar **React Navigation** (`StackNavigator`).
-    -   Deve conter no mínimo 3 telas: `ListaProdutosScreen`, `AddProdutoScreen`, `EditProdutoScreen`.
--   **Tela de Listagem (`ListaProdutosScreen`):**
-    -   Buscar e exibir os dados da API com `useEffect` e `axios`.
-    -   Renderizar a lista com o componente `<FlatList>`.
-    -   Cada item deve ter botões para "Editar" e "Excluir".
-    -   Deve haver um botão principal para navegar para a tela de "Adicionar Produto".
-    -   A lista deve ser atualizada automaticamente após qualquer operação de C, U ou D.
--   **Telas de Formulário (`AddProdutoScreen` e `EditProdutoScreen`):**
-    -   Usar componentes `<TextInput>` para os campos.
-    -   Utilizar a propriedade `keyboardType="numeric"` para os campos de `quantidade` e `preco`.
-    -   A tela de edição deve receber o `id` do produto via parâmetro de navegação.
+*(**Instrução:** Adicione aqui 2 ou 3 capturas de tela principais do seu aplicativo em funcionamento. Você pode fazer o upload das imagens para o próprio repositório GitHub e depois substituir as URLs abaixo.)*
 
-## Como Executar o Projeto
+**Tela Principal (Lista de Produtos)**
+`![Tela de Adicionar](URL_DA_SUA_IMAGEM_AQUI)`
+**Tela de Adicionar Produto**
+`![Tela de Adicionar](URL_DA_SUA_IMAGEM_AQUI)`
 
-Para testar a aplicação, ambos os servidores (backend e frontend) precisam estar rodando simultaneamente.
+## 3\. Stack de Tecnologias
 
-### API - `api-estoque`
-1.  Abra um terminal e navegue até a pasta da API:
-    
+  * **Frontend (Mobile):** React Native, Expo
+  * **Backend:** Node.js, Express.js
+  * **Banco de Dados:** Knex.js, SQLite
+  * **Containerização:** Docker, Docker Compose
+  * **Exposição de Rede:** Localtunnel
+  * **Geração de Build:** Expo EAS Build
+
+## 4\. Tutorial Completo para Execução do Ambiente
+
+Este guia detalha os passos para configurar e executar todo o ambiente de desenvolvimento, do backend em contêiner ao aplicativo móvel.
+
+### Pré-requisitos
+
+  * [Node.js](https://nodejs.org/) (v18 ou superior)
+  * [Docker Desktop](https://www.docker.com/products/docker-desktop/)
+  * [Git](https://git-scm.com/)
+
+### Passo 1: Clonar o Repositório
+
+```bash
+git clone https://github.com/Romarriolima/ava03.git
+cd ava03
+```
+
+### Passo 2: Executar o Backend com Docker
+
+Toda a API está contida em uma imagem Docker, tornando a execução do ambiente extremamente simples.
+
+1.  Navegue até a pasta da API:
+    ```bash
     cd api-estoque
-    
+    ```
+2.  Construa a imagem Docker. Este comando vai ler o `Dockerfile` e instalar todas as dependências da API:
+    ```bash
+    docker build -t Romarriolima/ava03-api-estoque .
+    ```
+3.  Inicie o contêiner a partir da imagem que acabamos de criar. A API estará disponível em `http://localhost:3000`:
+    ```bash
+    docker run -d -p 3000:3000 --name container-api-estoque Romarriolima/ava03-api-estoque
+    ```
+    *Para verificar se o contêiner está rodando, use o comando `docker ps`.*
 
-2.  Inicie o servidor:
-    
-    node index.js
-    
-    O terminal deve exibir a mensagem `Servidor da API... rodando...`. Deixe este terminal aberto.
+### Passo 3: Expor a API com Localtunnel
 
-### App - `app-estoque`
-1.  Abra um **segundo terminal** e navegue até a pasta do aplicativo:
+Para que o aplicativo no celular possa se comunicar com a API rodando no seu computador, precisamos expô-la para a internet.
 
-    cd app-estoque
- 
-2.  Inicie o servidor do Expo:
+1.  Em um **novo terminal**, execute o comando abaixo. Ele criará uma URL pública apontando para a porta `3000` do seu computador.
+    ```bash
+    npx localtunnel --port 3000 --subdomain ava03-estoque-api
+    ```
+2.  A URL gerada será `https://ava03-estoque-api.loca.lt`.
+3.  **Mantenha este terminal aberto** durante todo o uso do aplicativo.
 
-    npx expo start
+### Passo 4: Instalar e Executar o Protótipo (`.apk`)
 
-3.  Escaneie o QR Code com o aplicativo Expo Go no seu celular.
+O aplicativo móvel foi configurado para se comunicar com a URL pública gerada no passo anterior.
 
+1.  Baixe o arquivo `.apk` disponibilizado neste repositório.
+2.  Transfira o arquivo para um dispositivo Android e instale-o.
+3.  Abra o aplicativo. Com o contêiner Docker e o Localtunnel rodando, todas as funcionalidades de CRUD (listar, adicionar, editar e excluir produtos) estarão operacionais.
 
+-----
 
-## Instruções de Entrega
+### (Bônus) Executando com Docker Compose
 
--   Faça o `commit` de todo o seu código para este repositório `ava01`.
--   Garanta que as pastas `api-estoque` e `app-estoque` estejam na raiz do repositório.
--   A entrega será a versão final presente na `branch main` na data e horário estipulados.
--   Não inclua a pasta `node_modules` nos commits (utilize um arquivo `.gitignore`).
--   Envie o link do repositório `ava01` no sigaa
+Para simplificar ainda mais a execução do backend, um arquivo `docker-compose.yml` foi incluído.
+
+1.  Navegue até a pasta `api-estoque`.
+2.  Execute o comando:
+    ```bash
+    docker-compose up -d
+    ```
+    *Este único comando irá construir a imagem (se necessário) e iniciar o contêiner com as configurações corretas.*
+3.  Para parar o serviço, use `docker-compose down`.
+
+### (Opcional) Gerando um novo `.apk`
+
+Caso deseje gerar uma nova versão do protótipo:
+
+1.  Instale o Expo EAS CLI: `npm install -g eas-cli`
+2.  Navegue até a pasta do frontend: `cd app-estoque`
+3.  Faça o login: `eas login`
+4.  Configure o projeto: `eas build:configure` (usando o ID `com.romariolima1.appestoque`)
+5.  Inicie o build: `eas build --platform android --profile preview`
