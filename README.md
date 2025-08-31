@@ -17,7 +17,8 @@ Este projeto é um aplicativo móvel para gerenciamento de estoque, desenvolvido
 
 
 **Tela de Adicionar Produto**
-`![Tela de Adicionar](URL_DA_SUA_IMAGEM_AQUI)`
+![Imagem do WhatsApp de 2025-08-30 à(s) 16 57 47_86236a80](https://github.com/user-attachments/assets/46e47bcf-e9e8-4781-8dcf-b60f3135b4a5)
+
 
 ## 3\. Stack de Tecnologias
 
